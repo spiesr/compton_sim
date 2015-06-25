@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<gdml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="schema/gdml.xsd">
+
+<define>
+     <!--position name="v0" x="60.4388" y="-36.6311" z="65.0000" unit="mm"/-->
+
+     <position name="BeamEntryPipe" x="0.0" y="0.0" z="0.0" unit="mm"/>
+
+     <!--position name="parallelTest" x="0.0" y="0.0" z="200" unit="mm"/-->
+
+     <position name="dipole1" x="0.0" y="0.0" z="650." unit="mm"/>
+
+     <position name="bendPipeOne" x="0.0" y="-250." z="1233." unit="mm"/>
+
+     <position name="dipole2" x="0.0" y="-500" z="1816" unit="mm"/>
+
+     <position name="interactionPipe" x="0.0" y="-500" z="2466" unit="mm"/>
+
+     <position name="dipole3" x="0.0" y="-500" z="3116" unit="mm"/>
+
+     <position name="bendPipeTwo" x="0.0" y="-250" z="3699" unit="mm"/>
+
+     <position name="detectorCentre" x="0.0" y="-250" z="3699" unit="mm"/>
+
+     <position name="dipole4" x="0.0" y="0.0" z="4282" unit="mm"/>
+
+     <position name="beamExitPipe" x="0.0" y="0.0" z="4932" unit="mm"/>
+
+     <rotation name="bend1" unit="deg" x="-30" y="0" z="0"/>
+
+     <rotation name="bend2" unit="deg" x="30" y="0" z="0"/>
+
+     <rotation name="identity"/>
+
+</define>
+
+<materials>
+     <material Z="1" name="Vacuum" state="gas">
+       <T unit="K" value="2.73"/>
+       <P unit="pascal" value="3e-18"/>
+       <D unit="g/cm3" value="1e-25"/>
+       <atom unit="g/mole" value="1.01"/>
+     </material>
+     <!-- not 100% sure we need this material -->
+    <material Z="1" name="LiquidHydrogen" state="liquid">
+      <T unit="K" value="20.27"/>
+      <D unit="g/cm3" value="0.0708"/>
+      <atom unit="g/mole" value="1.00794"/>
+    </material>
+</materials>
+
+<solids>
+  <!-- tube and box segments defined here -->
+  <box name="boxMother" x="20000" y="20000" z="20000" lunit="mm"/>
+  <tube name="t1" rmin="0.0" rmax="100" z="1000" deltaphi="360" startphi="0" aunit="deg" lunit="mm"/>
+  <box name="b1" x="500" y="200" z="300" lunit="mm"/>
+  <tube name="t2" rmin="0.0" rmax="100" z="1000" deltaphi="360" startphi="0" aunit="deg" lunit="mm"/>
+  <box name="b2" x="500" y="200" z="300" lunit="mm"/>
+  <tube name="t3" rmin="0.0" rmax="100" z="1000" deltaphi="360" startphi="0" aunit="deg" lunit="mm"/>
+  <box name="b3" x="500" y="200" z="300" lunit="mm"/>
+  <tube name="t4" rmin="0.0" rmax="100" z="1000" deltaphi="360" startphi="0" aunit="deg" lunit="mm"/>
+  <box name="b4" x="500" y="200" z="300" lunit="mm"/>
+  <tube name="t5" rmin="0.0" rmax="100" z="1000" deltaphi="360" startphi="0" aunit="deg" lunit="mm"/>
+</solids>
+
+  <structure>
+
+    <!--Positions and rotations do *not* go here -->
+    <volume name="BeamEntry">
+      <materialref ref="Vacuum"/>
+      <solidref ref="t1"/>
+    </volume>
+    <volume name="firstDipole">
+      <materialref ref="Vacuum"/>
+      <solidref ref="b1"/>
+    </volume>
+    <volume name="firstBend">
+      <materialref ref="Vacuum"/>
+      <solidref ref="t2"/>
+    </volume>
+    <volume name="secondDipole">
+      <materialref ref="Vacuum"/>
+      <solidref ref="b2"/>
+    </volume>
+    <volume name="ComptonInteractionPipe">
+      <materialref ref="Vacuum"/>
+      <solidref ref="t3"/>
+    </volume>
+    <volume name="thirdDipole">
+      <materialref ref="Vacuum"/>
+      <solidref ref="b3"/>
+    </volume>
+    <volume name="secondBend">
+      <materialref ref="Vacuum"/>
+      <solidref ref="t4"/>
+    </volume>
+    <volume name="fourthDipole">
+      <materialref ref="Vacuum"/>
+      <solidref ref="b4"/>
+    </volume>
+    <volume name="beamExit">
+      <materialref ref="Vacuum"/>
+      <solidref ref="t5"/>
+    </volume>
+
+    <volume name="ChicaneMother">
+      <materialref ref="Vacuum"/>
+      <solidref ref="boxMother"/>
+
+      <!--The positions and rotations *do* go here -->
+      <physvol>
+	<volumeref ref="BeamEntry"/>
+	<positionref ref="BeamEntryPipe"/>
+      </physvol>
+      <physvol>
+	<volumeref ref="firstDipole"/>
+	<positionref ref="dipole1"/>
+      </physvol>
+      <physvol>
+	<volumeref ref="firstBend"/>
+	<positionref ref="bendPipeOne"/>
+	<rotationref ref="bend1"/>
+      </physvol>
+      <physvol>
+	<volumeref ref="secondDipole"/>
+	<positionref ref="dipole2"/>
+      </physvol>
+      <physvol>
+	<volumeref ref="ComptonInteractionPipe"/>
+	<positionref ref="interactionPipe"/>
+      </physvol>
+      <physvol>
+	<volumeref ref="thirdDipole"/>
+	<positionref ref="dipole3"/>
+      </physvol>
+      <physvol>
+	<volumeref ref="secondBend"/>
+	<positionref ref="bendPipeTwo"/>
+	<rotationref ref="bend2"/>
+      </physvol>
+      <physvol>
+	<volumeref ref="fourthDipole"/>
+	<positionref ref="dipole4"/>
+      </physvol>
+      <physvol>
+	<volumeref ref="beamExit"/>
+	<positionref ref="beamExitPipe"/>
+      </physvol>
+      <physvol>
+	<file name="geometry_sculpt/planeDetectorBase.gdml"/>
+	<positionref ref="detectorCentre"/>
+	<rotationref ref="identity"/>
+      </physvol>
+      <physvol>
+	<file name="geometry_sculpt/comptonTarget.gdml"/>
+	<positionref ref="interactionPipe"/>
+	<rotationref ref="identity"/>
+      </physvol>
+
+    </volume>
+
+  </structure>
+
+  <setup name="Compton" version="1.0">
+    <world ref="ChicaneMother"/>
+  </setup>
+
+</gdml>

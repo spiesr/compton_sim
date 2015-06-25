@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gdml xmlns:gdml="http://cern.ch/2001/Schemas/GDML" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="schema/gdml.xsd">
+
+<define>
+  <position name="v0" x="0" y="0" z="0" unit="mm"/>
+  <rotation name="detectorRotate" x="30" unit="deg"/>
+</define>
+
+<materials>
+  <material Z="1" name="Vacuum" state="gas">
+    <T unit="K" value="2.73"/>
+    <P unit="pascal" value="3e-18"/>
+    <D unit="g/cm3" value="1e-25"/>
+    <atom unit="g/mole" value="1.01"/>
+  </material>
+  <!--material-->
+  <!--For defining detector materials later-->
+  <!--/material-->
+</materials>
+
+<solids>
+  <box name="detectorMother" x="10" y="10" z="10" lunit="cm"/>
+  <box name="planeDetector" x="2.1" y="1.92" z="0.05" lunit="cm"/>
+</solids>
+
+<structure>
+  <volume name="detecteur">
+    <solidref ref="planeDetector"/>
+    <materialref ref="Vacuum"/>
+  </volume>
+  <volume name="logicDetector">
+    <materialref ref="Vacuum"/>
+    <solidref ref="detectorMother"/>
+    <physvol>
+      <volumeref ref="detecteur"/>
+      <positionref ref="v0"/>
+      <!--rotationref ref="detectorRotate"/-->
+    </physvol>
+  </volume>
+</structure>
+
+<setup name="Compton" version="1.0">
+  <world ref="logicDetector"/>
+</setup>
+
+</gdml>
